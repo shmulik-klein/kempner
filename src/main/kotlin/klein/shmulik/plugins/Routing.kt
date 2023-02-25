@@ -1,9 +1,9 @@
 package klein.shmulik.plugins
 
-import io.ktor.server.routing.*
-import io.ktor.server.response.*
 import io.ktor.server.application.*
-import klein.shmulik.models.Book
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import klein.shmulik.routes.bookRouting
 
 /**
  * Registers the application's endpoints
@@ -13,8 +13,6 @@ fun Application.configureRouting() {
         get("/") {
             call.respondText("Hello World!")
         }
-        get("/books") {
-            call.respond(listOf(Book(1, "Book1")))
-        }
+        bookRouting()
     }
 }

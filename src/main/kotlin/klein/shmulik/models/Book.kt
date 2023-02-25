@@ -8,3 +8,5 @@ data class Book(val isbn: Int, val name: String) {
         return "{isbn: $isbn; name: $name}"
     }
 }
+
+val booksDB = mapOf(1 to Book(1, "book1"))
