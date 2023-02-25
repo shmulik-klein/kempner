@@ -1,4 +1,4 @@
-package klein.shmulik.model
+package klein.shmulik.models
 
 import kotlinx.serialization.Serializable
 
