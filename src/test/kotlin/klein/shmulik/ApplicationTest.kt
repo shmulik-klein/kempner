@@ -2,10 +2,12 @@ package klein.shmulik
 
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.ktor.server.testing.*
-import kotlin.test.*
 import io.ktor.http.*
-import klein.shmulik.plugins.*
+import io.ktor.server.testing.*
+import klein.shmulik.plugins.configureContent
+import klein.shmulik.plugins.configureRouting
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ApplicationTest {
     @Test
@@ -20,11 +22,16 @@ class ApplicationTest {
     }
 
     @Test
-    fun testFirstBook() = testApplication {
+    fun `given no book was stored return an empty list`() = testApplication {
         application {
             configureRouting()
             configureContent()
         }
-        client.get("/books").apply { assertEquals("""[{"isbn":1,"name":"Book1"}]""", bodyAsText()) }
+        client.get("/books").apply {
+            assertEquals("[]", bodyAsText())
+            assertEquals(HttpStatusCode.OK, status)
+        }
     }
+
+
 }
