@@ -3,10 +3,11 @@ package klein.shmulik.repositories
 import klein.shmulik.models.Book
 
 class InMemoryBookRepository : BookRepository {
-    val books = mutableListOf<Book>()
-    override fun add(book: Book): Int {
-        TODO("Not yet implemented")
+    private val books = mutableMapOf<Int, Book>()
+    override fun add(book: Book): Book {
+        books[book.isbn] = book
+        return books[book.isbn]!!
     }
 
-    override fun listAll(): List<Book> = books
+    override fun listAll(): Map<Int, Book> = books
 }
