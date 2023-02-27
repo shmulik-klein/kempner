@@ -49,10 +49,10 @@ class ApplicationTest {
         }
         val response = client.post("/books") {
             contentType(ContentType.Application.Json)
-            setBody(Book(1, "book1"))
+            setBody(Book(isbn = 9783161484100, name = "book1"))
         }
 
         assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals("""{"isbn":1,"name":"book1"}""", response.bodyAsText())
+        assertEquals("""{"id":1,"isbn":9783161484100,"name":"book1"}""", response.bodyAsText())
     }
 }
