@@ -3,6 +3,8 @@ package klein.shmulik
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.requestvalidation.*
+import klein.shmulik.models.Book
 import klein.shmulik.plugins.configureContent
 import klein.shmulik.plugins.configureHTTP
 import klein.shmulik.plugins.configureMonitoring
@@ -20,4 +22,16 @@ fun Application.module() {
     configureRouting()
     configureContent()
     // configureJvmMonitor()
+    configureValidation()
+}
+
+fun Application.configureValidation() {
+    install(RequestValidation) {
+        validate<Book> {book ->
+            if (book.name.isBlank()) {
+                ValidationResult.Valid
+            }
+            ValidationResult.Invalid("Name can't be blank")
+        }
+    }
 }
